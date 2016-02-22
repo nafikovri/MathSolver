@@ -52,7 +52,9 @@ namespace UnitTests
 		[Test]
 		public void Translate_Incorrect()
 		{
-			throw new NotImplementedException();
+			var translator = new RpnTranslator();
+
+			Assert.Throws<Exception>(() => translator.Translate("2+2)"));			// нет открывающей скобки
 		}
 	}
 }
