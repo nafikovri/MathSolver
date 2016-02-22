@@ -2,6 +2,8 @@
 
 using NUnit.Framework;
 
+using ReversePolishNotation;
+
 namespace UnitTests
 {
 	[TestFixture]

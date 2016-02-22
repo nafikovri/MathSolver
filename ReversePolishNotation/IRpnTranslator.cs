@@ -4,6 +4,7 @@ namespace ReversePolishNotation
 {
 	public interface IRpnTranslator
 	{
-		List<RpnElement> Translate(string expression);
+		List<IRpnElement> Translate(string expression);
 	}
+
 }

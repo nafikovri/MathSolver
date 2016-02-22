@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRpnElement.cs" />
+    <Compile Include="RpnNumber.cs" />
     <Compile Include="RpnSolver.cs" />
     <Compile Include="IRpnTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
