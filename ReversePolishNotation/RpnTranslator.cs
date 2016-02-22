@@ -23,6 +23,7 @@ namespace ReversePolishNotation
 			{"-", new Operator() {Name = "-", Priority = 1, RpnOperator = new RpnBinaryOperator(Subtraction)}}
 		};
 
+
 		public IEnumerable<IRpnElement> Translate(string expression)
 		{
 			var result = new List<IRpnElement>();

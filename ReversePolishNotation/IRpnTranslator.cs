@@ -6,5 +6,4 @@ namespace ReversePolishNotation
 	{
 		IEnumerable<IRpnElement> Translate(string expression);
 	}
-
 }

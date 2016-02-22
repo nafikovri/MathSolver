@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ReversePolishNotation
@@ -29,5 +28,4 @@ namespace ReversePolishNotation
 			return stack.Pop();
 		}
     }
-
 }
