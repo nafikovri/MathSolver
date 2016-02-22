@@ -18,6 +18,9 @@ namespace ReversePolishNotation
 
 		private readonly Dictionary<string, Operator> _operators = new Dictionary<string, Operator>()
 		{
+			{">>", new Operator() {Name = ">>", Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x >> (int)y)}},
+			{"<<", new Operator() {Name = "<<", Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x << (int)y)}},
+
 			{"*", new Operator() {Name = "*", Priority = 2, RpnOperator = new RpnBinaryOperator(Multiplication)}},
 			{"/", new Operator() {Name = "/", Priority = 2, RpnOperator = new RpnBinaryOperator(Division)}},
 			{"+", new Operator() {Name = "+", Priority = 1, RpnOperator = new RpnBinaryOperator(Addition)}},
