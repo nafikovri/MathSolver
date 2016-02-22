@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+
+using Moq;
 
 using NUnit.Framework;
 
@@ -14,7 +16,42 @@ namespace UnitTests
 		{
 			var moqTranslator = new Mock<IRpnTranslator>();
 
-			// todo: set up Moq
+			#region Set up Mock
+
+			moqTranslator
+				.Setup(translator => translator.Translate("4+2*7"))
+				.Returns(new List<IRpnElement>()
+				{
+					new RpnNumber(4),
+					new RpnNumber(2),
+					new RpnNumber(7),
+					new RpnBinaryOperator((x, y) => x*y),
+					new RpnBinaryOperator((x, y) => x+y)
+				});
+
+			moqTranslator
+				.Setup(translator => translator.Translate("3*(6-2)"))
+				.Returns(new List<IRpnElement>()
+				{
+					new RpnNumber(3),
+					new RpnNumber(6),
+					new RpnNumber(2),
+					new RpnBinaryOperator((x, y) => x-y),
+					new RpnBinaryOperator((x, y) => x*y)
+				});
+
+			moqTranslator
+				.Setup(translator => translator.Translate("3-1/2"))
+				.Returns(new List<IRpnElement>()
+				{
+					new RpnNumber(3),
+					new RpnNumber(1),
+					new RpnNumber(2),
+					new RpnBinaryOperator((x, y) => x/y),
+					new RpnBinaryOperator((x, y) => x-y)
+				});
+
+			#endregion
 
 			var solver = new RpnSolver(moqTranslator.Object);
 

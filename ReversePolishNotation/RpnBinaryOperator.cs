@@ -18,8 +18,8 @@ namespace ReversePolishNotation
 				throw new InvalidOperationException(
 					$"Недостаточно операндов для выполнения операции. Необходимо {2}, обнаружено {stack.Count}");
 
-			var operand1 = stack.Pop();
 			var operand2 = stack.Pop();
+			var operand1 = stack.Pop();
 
 			stack.Push(this._operation(operand1, operand2));
 		}

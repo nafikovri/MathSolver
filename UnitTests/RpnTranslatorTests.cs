@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+
+using NUnit.Framework;
 
 namespace UnitTests
 {
@@ -8,13 +10,13 @@ namespace UnitTests
 		[Test]
 		public void Translate_Correct()
 		{
-
+			throw new NotImplementedException();
 		}
 
 		[Test]
 		public void Translate_Incorrect()
 		{
-
+			throw new NotImplementedException();
 		}
 	}
 }
