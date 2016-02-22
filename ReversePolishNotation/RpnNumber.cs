@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ReversePolishNotation
 {
 	public class RpnNumber : IRpnElement
 	{
-		private double _value;
+		private readonly double _value;
 
 		public RpnNumber(double value)
 		{
@@ -14,6 +15,20 @@ namespace ReversePolishNotation
 		public void Calculate(ref Stack<double> stack)
 		{
 			stack.Push(this._value);
+		}
+
+		public override bool Equals(object obj)
+		{
+			var other = obj as RpnNumber;
+			if (other != null)
+				return this._value.Equals(other._value);
+
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return this._value.GetHashCode();
 		}
 	}
 }

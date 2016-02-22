@@ -5,7 +5,7 @@ namespace ReversePolishNotation
 {
 	public class RpnBinaryOperator : IRpnElement
 	{
-		private Func<double, double, double> _operation;
+		private readonly Func<double, double, double> _operation;
 
 		public RpnBinaryOperator(Func<double, double, double> operation)
 		{
@@ -22,6 +22,20 @@ namespace ReversePolishNotation
 			var operand1 = stack.Pop();
 
 			stack.Push(this._operation(operand1, operand2));
+		}
+
+		public override bool Equals(object obj)
+		{
+			var other = obj as RpnBinaryOperator;
+			if (other != null)
+				return this._operation.Equals(other._operation);
+
+			return false;
+		}
+		
+		public override int GetHashCode()
+		{
+			return this._operation?.GetHashCode() ?? 0;
 		}
 	}
 }
