@@ -50,6 +50,23 @@ namespace UnitTests
 		}
 
 		[Test]
+		public void Translate_CorrectDecimal()
+		{
+			var translator = new RpnTranslator();
+			
+			CollectionAssert.AreEqual(
+				translator.Translate("3.0-1.5/2.8"),
+				new List<IRpnElement>()
+				{
+					new RpnNumber(3),
+					new RpnNumber(1.5),
+					new RpnNumber(2.8),
+					new RpnBinaryOperator(RpnTranslator.Division),
+					new RpnBinaryOperator(RpnTranslator.Subtraction)
+				});
+		}
+
+		[Test]
 		public void Translate_IncorrectParentheses()
 		{
 			var translator = new RpnTranslator();
