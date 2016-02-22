@@ -18,13 +18,13 @@ namespace ReversePolishNotation
 
 		private readonly Dictionary<string, Operator> _operators = new Dictionary<string, Operator>()
 		{
-			{">>", new Operator() {Name = ">>", Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x >> (int)y)}},
-			{"<<", new Operator() {Name = "<<", Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x << (int)y)}},
+			{">>", new Operator() {Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x >> (int)y)}},
+			{"<<", new Operator() {Priority = 5, RpnOperator = new RpnBinaryOperator((x, y) => (int)x << (int)y)}},
 
-			{"*", new Operator() {Name = "*", Priority = 2, RpnOperator = new RpnBinaryOperator(Multiplication)}},
-			{"/", new Operator() {Name = "/", Priority = 2, RpnOperator = new RpnBinaryOperator(Division)}},
-			{"+", new Operator() {Name = "+", Priority = 1, RpnOperator = new RpnBinaryOperator(Addition)}},
-			{"-", new Operator() {Name = "-", Priority = 1, RpnOperator = new RpnBinaryOperator(Subtraction)}}
+			{"*", new Operator() {Priority = 2, RpnOperator = new RpnBinaryOperator(Multiplication)}},
+			{"/", new Operator() {Priority = 2, RpnOperator = new RpnBinaryOperator(Division)}},
+			{"+", new Operator() {Priority = 1, RpnOperator = new RpnBinaryOperator(Addition)}},
+			{"-", new Operator() {Priority = 1, RpnOperator = new RpnBinaryOperator(Subtraction)}}
 		};
 
 
@@ -54,12 +54,12 @@ namespace ReversePolishNotation
 				else if ("()".Contains(element))
 				{
 					if (element.Equals("("))
-						stackOfOperators.Push(new Operator() {Name = "(", Priority = 0});
+						stackOfOperators.Push(new Operator() {Priority = 0});
 					else
 					{
 						try
 						{
-							while (stackOfOperators.Peek().Name != "(")
+							while (stackOfOperators.Peek().Priority != 0)
 							{
 								result.Add(stackOfOperators.Pop().RpnOperator);
 							}
@@ -105,7 +105,6 @@ namespace ReversePolishNotation
 		private struct Operator
 		{
 			public int Priority;
-			public string Name;
 			public IRpnElement RpnOperator;
 		}
 	}
