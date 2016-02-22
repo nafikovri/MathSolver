@@ -50,11 +50,20 @@ namespace UnitTests
 		}
 
 		[Test]
-		public void Translate_Incorrect()
+		public void Translate_IncorrectParentheses()
 		{
 			var translator = new RpnTranslator();
 
-			Assert.Throws<Exception>(() => translator.Translate("2+2)"));			// нет открывающей скобки
+			Assert.Throws<Exception>(() => translator.Translate("2+2)"));           // нет открывающей скобки
+			Assert.Throws<Exception>(() => translator.Translate("(2+2"));           // нет закрывающей скобки
+		}
+
+		[Test]
+		public void Translate_IncorrectOperator()
+		{
+			var translator = new RpnTranslator();
+			
+			Assert.Throws<Exception>(() => translator.Translate("2++2"));           // неизвестный оператор
 		}
 	}
 }
