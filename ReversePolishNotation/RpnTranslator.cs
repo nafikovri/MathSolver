@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -33,7 +34,7 @@ namespace ReversePolishNotation
 			{
 				if (IsNumber(element))
 				{
-					result.Add(new RpnNumber(double.Parse(element)));
+					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
 				}
 				else if (this._operators.ContainsKey(element))
 				{
