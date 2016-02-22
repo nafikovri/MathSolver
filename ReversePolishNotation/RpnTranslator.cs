@@ -12,7 +12,7 @@ namespace ReversePolishNotation
 		public static Func<double, double, double> Subtraction = (x, y) => x - y;
 		public static Func<double, double, double> Division = (x, y) => x / y;
 
-		private const string _regexSplitter = @"([\^\*\/\+\-\(\)\|])";
+		private const string _regexSplitter = @"([0-9]+\.?[0-9]*|[\(\)])";
 		private const string _regexIsNumber = @"^[0-9]+\.?[0-9]*$";
 
 		private readonly Dictionary<string, Operator> _operators = new Dictionary<string, Operator>()
