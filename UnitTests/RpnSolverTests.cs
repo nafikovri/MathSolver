@@ -14,11 +14,11 @@ namespace UnitTests
 		[Test]
 		public void Solve_Correct()
 		{
-			var moqTranslator = new Mock<IRpnTranslator>();
+			var mockTranslator = new Mock<IRpnTranslator>();
 
 			#region Set up Mock
 
-			moqTranslator
+			mockTranslator
 				.Setup(translator => translator.Translate("4+2*7"))
 				.Returns(new List<IRpnElement>()
 				{
@@ -29,7 +29,7 @@ namespace UnitTests
 					new RpnBinaryOperator((x, y) => x+y)
 				});
 
-			moqTranslator
+			mockTranslator
 				.Setup(translator => translator.Translate("3*(6-2)"))
 				.Returns(new List<IRpnElement>()
 				{
@@ -40,7 +40,7 @@ namespace UnitTests
 					new RpnBinaryOperator((x, y) => x*y)
 				});
 
-			moqTranslator
+			mockTranslator
 				.Setup(translator => translator.Translate("3-1/2"))
 				.Returns(new List<IRpnElement>()
 				{
@@ -53,7 +53,7 @@ namespace UnitTests
 
 			#endregion
 
-			var solver = new RpnSolver(moqTranslator.Object);
+			var solver = new RpnSolver(mockTranslator.Object);
 
 			Assert.AreEqual(solver.Solve("4+2*7"), 18, 0.002d);
 			Assert.AreEqual(solver.Solve("3*(6-2)"), 12, 0.002d);

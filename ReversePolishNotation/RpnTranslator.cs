@@ -13,7 +13,8 @@ namespace ReversePolishNotation
 		public static Func<double, double, double> Subtraction = (x, y) => x - y;
 		public static Func<double, double, double> Division = (x, y) => x / y;
 
-		private const string _regexSplitter = @"([0-9]+\.?[0-9]*|[\(\)])";
+		private readonly ISplitter _splitter;
+
 		private const string _regexIsNumber = @"^[0-9]+\.?[0-9]*$";
 
 		private readonly Dictionary<string, Operator> _operators = new Dictionary<string, Operator>()
@@ -27,21 +28,25 @@ namespace ReversePolishNotation
 			{"-", new Operator() {Priority = 1, RpnOperator = new RpnBinaryOperator(Subtraction)}}
 		};
 
+		#region Constructor
+
+		public RpnTranslator(ISplitter splitter)
+		{
+			_splitter = splitter;
+		}
+
+		#endregion
 
 		public IEnumerable<IRpnElement> Translate(string expression)
 		{
 			var result = new List<IRpnElement>();
 			var stackOfOperators = new Stack<Operator>();
 
-			foreach (var element in Split(expression))
+			foreach (var element in _splitter.Split(expression))
 			{
-				if (IsNumber(element))
+				if (_operators.ContainsKey(element))
 				{
-					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
-				}
-				else if (this._operators.ContainsKey(element))
-				{
-					var oper = this._operators[element];
+					var oper = _operators[element];
 
 					while (stackOfOperators.Any() &&
 						oper.Priority <= stackOfOperators.Peek().Priority)
@@ -71,6 +76,10 @@ namespace ReversePolishNotation
 						}
 					}
 				}
+				else if (IsNumber(element))
+				{
+					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
+				}
 				else
 				{
 					throw new Exception($"Неизвестный элемент выражения: {element}");
@@ -86,15 +95,6 @@ namespace ReversePolishNotation
 			}
 
 			return result;
-		}
-
-
-		private static IEnumerable<string> Split(string expression)
-		{
-			expression = Regex.Replace(expression, @"\s", string.Empty);
-
-			var elements = Regex.Split(expression, _regexSplitter);
-			return elements.Where(element => element.Length != 0);
 		}
 
 		private static bool IsNumber(string str)

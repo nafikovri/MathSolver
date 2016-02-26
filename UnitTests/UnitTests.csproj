@@ -50,8 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RpnBinaryOperatorTests.cs" />
     <Compile Include="RpnSolverTests.cs" />
     <Compile Include="RpnTranslatorTests.cs" />
+    <Compile Include="SimpleSplitterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
