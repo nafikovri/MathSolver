@@ -44,11 +44,7 @@ namespace ReversePolishNotation
 
 			foreach (var element in _splitter.Split(expression))
 			{
-				if (IsNumber(element))
-				{
-					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
-				}
-				else if (_operators.ContainsKey(element))
+				if (_operators.ContainsKey(element))
 				{
 					var oper = _operators[element];
 
@@ -79,6 +75,10 @@ namespace ReversePolishNotation
 							throw new Exception("Отсутствует открывающая скобка");
 						}
 					}
+				}
+				else if (IsNumber(element))
+				{
+					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
 				}
 				else
 				{
