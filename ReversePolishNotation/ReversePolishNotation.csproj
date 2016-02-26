@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRpnElement.cs" />
+    <Compile Include="ISplitter.cs" />
     <Compile Include="RpnBinaryOperator.cs" />
     <Compile Include="RpnNumber.cs" />
     <Compile Include="RpnSolver.cs" />
     <Compile Include="IRpnTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RpnTranslator.cs" />
+    <Compile Include="SimpleSplitter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
