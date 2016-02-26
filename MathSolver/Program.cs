@@ -8,7 +8,7 @@ namespace MathSolver
 	{
 		static void Main(string[] args)
 		{
-			var solver = new RpnSolver(new RpnTranslator());
+			var solver = new RpnSolver(new RpnTranslator(new SimpleSplitter()));
 
 			while (true)
 			{
