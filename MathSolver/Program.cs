@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Castle.Windsor;
+
 using ReversePolishNotation;
 
 namespace MathSolver
@@ -8,7 +10,13 @@ namespace MathSolver
 	{
 		static void Main(string[] args)
 		{
-			var solver = new RpnSolver(new RpnTranslator(new SimpleSplitter()));
+			/* В общем случае, контейнер должен быть доступен не только в этом методе,
+			 * но для этой небольшой задачи подходит такое решение.
+			 */
+			var container = new WindsorContainer();
+			container.Install(new RpnInstaller());
+
+			var solver = container.Resolve<RpnSolver>();
 
 			while (true)
 			{
