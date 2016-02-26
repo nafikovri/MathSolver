@@ -48,9 +48,9 @@ namespace ReversePolishNotation
 				{
 					result.Add(new RpnNumber(double.Parse(element, new NumberFormatInfo() { CurrencyDecimalSeparator = "." })));
 				}
-				else if (this._operators.ContainsKey(element))
+				else if (_operators.ContainsKey(element))
 				{
-					var oper = this._operators[element];
+					var oper = _operators[element];
 
 					while (stackOfOperators.Any() &&
 						oper.Priority <= stackOfOperators.Peek().Priority)

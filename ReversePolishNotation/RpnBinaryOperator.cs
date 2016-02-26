@@ -9,7 +9,7 @@ namespace ReversePolishNotation
 
 		public RpnBinaryOperator(Func<double, double, double> operation)
 		{
-			this._operation = operation;
+			_operation = operation;
 		}
 
 		public void Calculate(ref Stack<double> stack)
@@ -21,21 +21,21 @@ namespace ReversePolishNotation
 			var operand2 = stack.Pop();
 			var operand1 = stack.Pop();
 
-			stack.Push(this._operation(operand1, operand2));
+			stack.Push(_operation(operand1, operand2));
 		}
 
 		public override bool Equals(object obj)
 		{
 			var other = obj as RpnBinaryOperator;
 			if (other != null)
-				return this._operation.Equals(other._operation);
+				return _operation.Equals(other._operation);
 
 			return false;
 		}
 		
 		public override int GetHashCode()
 		{
-			return this._operation?.GetHashCode() ?? 0;
+			return _operation?.GetHashCode() ?? 0;
 		}
 	}
 }

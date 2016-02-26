@@ -16,7 +16,7 @@ namespace ReversePolishNotation
 		{
 			var stack = new Stack<double>();
 
-			var rpn = this._translator.Translate(expression);
+			var rpn = _translator.Translate(expression);
 			foreach (var element in rpn)
 			{
 				element.Calculate(ref stack);
