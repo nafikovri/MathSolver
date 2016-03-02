@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interpreters\AdditionalOperatorsInterpreter.cs" />
+    <Compile Include="BasicOperators.cs" />
+    <Compile Include="Interpreters\BasicOperatorsInterpreter.cs" />
     <Compile Include="IRpnElement.cs" />
+    <Compile Include="IRpnInterpreter.cs" />
     <Compile Include="ISplitter.cs" />
+    <Compile Include="Interpreters\NumberInterpreter.cs" />
+    <Compile Include="Operator.cs" />
+    <Compile Include="Interpreters\ParenthesesInterpreter.cs" />
     <Compile Include="RpnBinaryOperator.cs" />
     <Compile Include="RpnNumber.cs" />
     <Compile Include="RpnSolver.cs" />
