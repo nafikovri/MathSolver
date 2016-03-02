@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 
 using ReversePolishNotation;
+using ReversePolishNotation.Interpreters;
 
 namespace UnitTests
 {
@@ -85,11 +86,20 @@ namespace UnitTests
 
 		#endregion
 
+		private IList<IRpnInterpreter> GetInterpreters()
+		{
+			return new List<IRpnInterpreter>
+			{
+				new BasicOperatorsInterpreter(),
+				new ParenthesesInterpreter(),
+				new NumberInterpreter()
+			};
+		}
 
 		[Test]
 		public void Translate_Correct()
 		{
-			var translator = new RpnTranslator(SetupSplitter_Correct());
+			var translator = new RpnTranslator(SetupSplitter_Correct(), GetInterpreters());
 
 			CollectionAssert.AreEqual(
 				translator.Translate(expCorrect1),
@@ -98,8 +108,8 @@ namespace UnitTests
 					new RpnNumber(4),
 					new RpnNumber(2),
 					new RpnNumber(7),
-					new RpnBinaryOperator(RpnTranslator.Multiplication),
-					new RpnBinaryOperator(RpnTranslator.Addition)
+					new RpnBinaryOperator(BasicOperators.Multiplication),
+					new RpnBinaryOperator(BasicOperators.Addition)
 				});
 
 			CollectionAssert.AreEqual(
@@ -109,8 +119,8 @@ namespace UnitTests
 					new RpnNumber(3),
 					new RpnNumber(6),
 					new RpnNumber(2),
-					new RpnBinaryOperator(RpnTranslator.Subtraction),
-					new RpnBinaryOperator(RpnTranslator.Multiplication)
+					new RpnBinaryOperator(BasicOperators.Subtraction),
+					new RpnBinaryOperator(BasicOperators.Multiplication)
 				});
 
 			CollectionAssert.AreEqual(
@@ -120,15 +130,15 @@ namespace UnitTests
 					new RpnNumber(3),
 					new RpnNumber(1),
 					new RpnNumber(2),
-					new RpnBinaryOperator(RpnTranslator.Division),
-					new RpnBinaryOperator(RpnTranslator.Subtraction)
+					new RpnBinaryOperator(BasicOperators.Division),
+					new RpnBinaryOperator(BasicOperators.Subtraction)
 				});
 		}
 
 		[Test]
 		public void Translate_CorrectDecimal()
 		{
-			var translator = new RpnTranslator(SetupSplitter_CorrectDecimal());
+			var translator = new RpnTranslator(SetupSplitter_CorrectDecimal(), GetInterpreters());
 
 			CollectionAssert.AreEqual(
 				translator.Translate(expCorrectDecimal),
@@ -137,15 +147,15 @@ namespace UnitTests
 					new RpnNumber(3),
 					new RpnNumber(1.5),
 					new RpnNumber(2.8),
-					new RpnBinaryOperator(RpnTranslator.Division),
-					new RpnBinaryOperator(RpnTranslator.Subtraction)
+					new RpnBinaryOperator(BasicOperators.Division),
+					new RpnBinaryOperator(BasicOperators.Subtraction)
 				});
 		}
 
 		[Test]
 		public void Translate_IncorrectParentheses()
 		{	
-			var translator = new RpnTranslator(SetupSplitter_IncorrectParentheses());
+			var translator = new RpnTranslator(SetupSplitter_IncorrectParentheses(), GetInterpreters());
 
 			Assert.Throws<Exception>(() => translator.Translate(expIncorrectParentheses1));           // нет открывающей скобки
 			Assert.Throws<Exception>(() => translator.Translate(expIncorrectParentheses2));           // нет закрывающей скобки
@@ -154,7 +164,7 @@ namespace UnitTests
 		[Test]
 		public void Translate_IncorrectOperator()
 		{
-			var translator = new RpnTranslator(SetupSplitter_IncorrectOperator());
+			var translator = new RpnTranslator(SetupSplitter_IncorrectOperator(), GetInterpreters());
 			
 			Assert.Throws<Exception>(() => translator.Translate(expIncorrectOperator));           // неизвестный оператор
 		}
